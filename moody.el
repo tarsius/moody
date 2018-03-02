@@ -90,16 +90,26 @@ This should be an even number."
 
 ;;; Core
 
+(defun moody-deep-replace (from to lst)
+  "Replace FROM with TO wherever it appears in list-of-lists LST.
+Comparison is done with `equal'."
+  (cond ((equal from lst)
+         to)
+        ((listp lst)
+         (mapcar (lambda (sub) (deep-replace from to sub)) lst))
+        (t
+         lst)))
+
 (defun moody-replace-element (plain wrapped &optional reverse)
   "Replace PLAIN element with WRAPPED element in `mode-line-format'.
 If optional REVERSE is non-nil, then replace WRAPPED with PLAIN."
   (when reverse
     (cl-rotatef plain wrapped))
-  (let ((replace (member plain mode-line-format)))
-    (cond (replace
-           (setcar replace wrapped))
-          ((not (member wrapped mode-line-format))
-           (message "Cannot find %s and use %s in its place" plain wrapped)))))
+  (let ((replaced (moody-deep-replace plain wrapped mode-line-format)))
+    (cond ((equal replaced mode-line-format)
+           (message "Cannot find %s and use %s in its place" plain wrapped))
+          (t
+           (setq mode-line-format replaced)))))
 
 (defun moody-tab (string &optional width direction)
   "Return STRING as a tab.
