@@ -75,6 +75,8 @@
 
 ;;; Code:
 
+(require 'cl-lib)
+
 ;;; Options
 
 (defcustom moody-mode-line-height 30
