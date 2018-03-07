@@ -288,6 +288,28 @@ to the command loop."
 (advice-add 'handle-switch-frame :after     'moody--set-active-window)
 (advice-add 'select-window :after           'moody--set-active-window)
 
+;;; Kludges
+
+(defun moody-slant-apple-rgb (direction c1 c2 c3 &optional height)
+  (cl-flet ((cnv (color)
+                 (pcase-let*
+                     ((`(,r ,g ,b) (color-name-to-rgb color))
+                      (`(,x ,y ,z) (color-srgb-to-xyz r g b))
+                      (r (expt (+ (*  3.2404542 x)
+                                  (* -1.5371385 y)
+                                  (* -0.4985314 z))
+                               (/ 1.8)))
+                      (g (expt (+ (* -0.9692660 x)
+                                  (*  1.8760108 y)
+                                  (*  0.0415560 z))
+                               (/ 1.8)))
+                      (b (expt (+ (*  0.0556434 x)
+                                  (* -0.2040259 y)
+                                  (*  1.0572252 z))
+                               (/ 1.8))))
+                   (color-rgb-to-hex r g b))))
+    (moody-slant direction (cnv c1) (cnv c2) (cnv c3) height)))
+
 ;;; _
 (provide 'moody)
 ;; Local Variables:
