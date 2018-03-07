@@ -287,6 +287,9 @@ to the command loop."
 (add-hook 'focus-in-hook                    'moody--set-active-window)
 (advice-add 'handle-switch-frame :after     'moody--set-active-window)
 (advice-add 'select-window :after           'moody--set-active-window)
+(advice-add 'make-frame :after              'moody--set-active-window)
+(advice-add 'other-frame :after             'moody--set-active-window)
+(advice-add 'delete-frame :after            'moody--set-active-window)
 
 ;;; _
 (provide 'moody)
