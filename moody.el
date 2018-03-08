@@ -289,9 +289,12 @@ to the command loop."
     (unless (minibuffer-window-active-p win)
       (setq moody--active-window win))))
 
+(add-hook 'after-make-frame-functions       'moody--set-active-window)
 (add-hook 'window-configuration-change-hook 'moody--set-active-window)
 (add-hook 'focus-in-hook                    'moody--set-active-window)
 (advice-add 'select-window :after           'moody--set-active-window)
+(advice-add 'select-frame :after            'moody--set-active-window)
+(advice-add 'delete-frame :after            'moody--set-active-window)
 
 ;;; Kludges
 
