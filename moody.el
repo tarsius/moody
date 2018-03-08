@@ -291,7 +291,6 @@ to the command loop."
 
 (add-hook 'window-configuration-change-hook 'moody--set-active-window)
 (add-hook 'focus-in-hook                    'moody--set-active-window)
-(advice-add 'handle-switch-frame :after     'moody--set-active-window)
 (advice-add 'select-window :after           'moody--set-active-window)
 
 ;;; Kludges
