@@ -150,7 +150,7 @@ not specified, then faces based on `default', `mode-line' and
                     (list outer line inner)
                   (list inner line outer)))
          (face  (if (eq direction 'down)
-                    (list :overline nil
+                    (list :overline (and (eq type 'ribbon) line)
                           :underline line
                           :background inner)
                   (list :overline line
