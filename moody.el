@@ -218,6 +218,7 @@ not specified, then faces based on `default', `mode-line' and
 (put 'moody-mode-line-buffer-identification 'risky-local-variable t)
 (make-variable-buffer-local 'moody-mode-line-buffer-identification)
 
+;;;###autoload
 (defun moody-replace-mode-line-buffer-identification (&optional reverse)
   (interactive "P")
   (moody-replace-element 'mode-line-buffer-identification
@@ -241,6 +242,7 @@ not specified, then faces based on `default', `mode-line' and
 (defvar moody--default-mode-line-buffer-identification
   mode-line-buffer-identification)
 
+;;;###autoload
 (defun moody-replace-sml/mode-line-buffer-identification (&optional reverse)
   (interactive "P")
   ;; Without this `sml/generate-buffer-identification' would always return nil.
@@ -260,6 +262,7 @@ not specified, then faces based on `default', `mode-line' and
 (put 'moody-vc-mode 'risky-local-variable t)
 (make-variable-buffer-local 'moody-vc-mode)
 
+;;;###autoload
 (defun moody-replace-vc-mode (&optional reverse)
   (interactive "P")
   (moody-replace-element '(vc-mode vc-mode)
