@@ -184,7 +184,7 @@ not specified, then faces based on `default', `mode-line' and
 (defun moody-slant (direction c1 c2 c3 &optional height)
   (unless height
     (setq height moody-mode-line-height))
-  (unless (evenp height)
+  (unless (cl-evenp height)
     (cl-incf height))
   (let ((key (list direction c1 c2 c3 height)))
     (or (cdr (assoc key moody--cache))
