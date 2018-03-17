@@ -296,7 +296,12 @@ to the command loop."
 
 ;;; Kludges
 
+(declare-function color-srgb-to-xyz "color" (red green blue))
+(declare-function color-rgb-to-hex "color" (red green blue &optional
+                                                digits-per-component))
+
 (defun moody-slant-apple-rgb (direction c1 c2 c3 &optional height)
+  (require (quote color))
   (cl-flet ((cnv (color)
                  (pcase-let*
                      ((`(,r ,g ,b) (color-name-to-rgb color))
