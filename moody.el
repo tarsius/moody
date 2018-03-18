@@ -81,7 +81,8 @@
 ;;; Options
 
 (defcustom moody-mode-line-height
-  (* 2 (aref (font-info (face-font 'mode-line)) 2))
+  (let ((font (face-font 'mode-line)))
+    (if font (* 2 (aref (font-info font) 2)) 30))
   "When using `moody', height of the mode line in pixels.
 This should be an even number."
   :type 'integer
