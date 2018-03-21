@@ -102,8 +102,10 @@ Replace every occurance of PLAIN is the complete tree.
 If optional REVERSE is non-nil, then replace WRAPPED with PLAIN."
   (when reverse
     (cl-rotatef plain wrapped))
-  (let ((format (cl-subst wrapped plain mode-line-format :test #'equal)))
-    (if (eq format mode-line-format)
+  (let ((format (cl-subst wrapped plain
+                          (default-value 'mode-line-format)
+                          :test #'equal)))
+    (if (eq format (default-value 'mode-line-format))
         (message "Cannot find %s and use %s in its place" plain wrapped)
       (setq-default mode-line-format format))))
 
