@@ -5,7 +5,7 @@ This package provides utilities for displaying elements of the
 mode line as tabs and ribbons.  It also provides replacements
 for a few built-in elements.
 
-![screenshot](https://emacsair.me/assets/readme/moody.png)
+![screenshot](http://readme.emacsair.me/moody.png)
 
 * Make sure that the face `mode-line` does not set `:box` and
   that `:underline` and `:overline` are the same color or are
