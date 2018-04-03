@@ -301,6 +301,8 @@ to the command loop."
 
 ;;; Kludges
 
+(advice-add 'resize-temp-buffer-window :before 'redisplay)
+
 (declare-function color-srgb-to-xyz "color" (red green blue))
 (declare-function color-rgb-to-hex "color" (red green blue &optional
                                                 digits-per-component))
