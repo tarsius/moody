@@ -38,7 +38,7 @@ for a few built-in elements.
     (moody-replace-vc-mode))
   ```
 
-* Such replacement functions are defines as commands, making it
+* Such replacement functions are defined as commands, making it
   quicker to try them out.
 
 * To undo a replacement use the optional REVERSE argument of the
