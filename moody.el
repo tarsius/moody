@@ -292,7 +292,8 @@ to the command loop."
 (defun moody--set-active-window (&rest _)
   (let ((win (frame-selected-window)))
     (unless (minibuffer-window-active-p win)
-      (setq moody--active-window win))))
+      (setq moody--active-window win)
+      (force-mode-line-update))))
 
 (add-hook 'after-make-frame-functions       'moody--set-active-window)
 (add-hook 'window-configuration-change-hook 'moody--set-active-window)
