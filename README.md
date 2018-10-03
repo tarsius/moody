@@ -11,9 +11,9 @@ for a few built-in elements.
   that `:underline` and `:overline` are the same color or are
   both `undefined`.  If defined, then the line color should be
   different from the `:background` colors of both `mode-line`
-  and `default`.  Do the same for `mode-line-inactive`.  The
-  line colors of `mode-line` and `mode-line-inactive` do not
-  have to be identical.  For example:
+  and `default`.  The same rules apply to `mode-line-inactive`.
+  The line colors of `mode-line' and `mode-line-inactive` do
+  not necessarily have to be identical.  For example:
 
   ```lisp
   (use-package solarized-theme
@@ -39,8 +39,10 @@ for a few built-in elements.
   ```
 
 * Such replacement functions are defined as commands, making it
-  quicker to try them out.
+  quicker to try them out without having to add anything to your
+  init file.
 
-* To undo a replacement use the optional REVERSE argument of the
-  replacement function.  When calling it interactively, then use
-  a prefix argument to do so.
+* To undo the call to a `moody-replace-*` function, call the same
+  function with `t` as the value of the optional REVERSE argument.
+  You can accomplish the same by interactively calling such a
+  function with a prefix argument to do so.
