@@ -230,7 +230,7 @@ not specified, then faces based on `default', `mode-line' and
 
 ;;;; sml/mode-line-buffer-identification
 
-(defvar sml/mode-line-buffer-identification) ; define in `smart-mode-line.el'
+(defvar sml/mode-line-buffer-identification) ; defined in `smart-mode-line.el'
 
 (defvar moody-sml/mode-line-buffer-identification
   '(:eval (moody-tab
