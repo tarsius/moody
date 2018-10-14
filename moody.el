@@ -275,8 +275,12 @@ not specified, then faces based on `default', `mode-line' and
                          reverse))
 
 ;;; Active Window
-;;
-;; Inspired by, but not identical to, code in `powerline'.
+
+;; Inspired by, but not identical to, code in `powerline'.  Unlike
+;; that, do not unset `moody--active-window' using `focus-out-hook'
+;; because it is called when a non-Emacs window gains focus, but
+;; Emacs still considers the previous Emacs window to be selected,
+;; so we have to do the same.
 
 (defvar moody--active-window (frame-selected-window))
 
@@ -299,12 +303,6 @@ to the command loop."
 (advice-add 'select-window :after           'moody--set-active-window)
 (advice-add 'select-frame :after            'moody--set-active-window)
 (advice-add 'delete-frame :after            'moody--set-active-window)
-
-(defun moody--unset-active-window (&rest _)
-  (setq moody--active-window nil)
-  (force-mode-line-update))
-
-(add-hook 'focus-out-hook 'moody--unset-active-window)
 
 ;;; Kludges
 
