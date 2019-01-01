@@ -12,7 +12,7 @@ for a few built-in elements.
   both `undefined`.  If defined, then the line color should be
   different from the `:background` colors of both `mode-line`
   and `default`.  The same rules apply to `mode-line-inactive`.
-  The line colors of `mode-line' and `mode-line-inactive` do
+  The line colors of `mode-line` and `mode-line-inactive` do
   not necessarily have to be identical.  For example:
 
   ```lisp
