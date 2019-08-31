@@ -114,9 +114,9 @@ If optional REVERSE is non-nil, then replace WRAPPED with PLAIN."
 (defun moody-tab (string &optional width direction)
   "Return STRING as a tab.
 
-STRING is padded with at least one space on either side.  If
-optional WIDTH is non-nil, then it has to be an integer and
-specifies how much padding is added.
+STRING is padded with at least one space on either side.
+If optional WIDTH is non-nil, then it has to be an integer
+and specifies how much padding is added.
 
 DIRECTION specifies the direction of the slant and defaults
 to `up'.  The other valid value is `down'."
@@ -125,9 +125,9 @@ to `up'.  The other valid value is `down'."
 (defun moody-ribbon (string &optional width direction face-active face-inactive)
   "Return STRING as a ribbon.
 
-STRING is padded with at least one space on either side.  If
-optional WIDTH is non-nil, then it has to be an integer and
-specifies how much padding is added.
+STRING is padded with at least one space on either side.
+If optional WIDTH is non-nil, then it has to be an integer
+and specifies how much padding is added.
 
 DIRECTION specifies the direction of the slant and defaults
 to `up'.  The other valid value is `down'.
