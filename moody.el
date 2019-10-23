@@ -307,7 +307,26 @@ to the command loop."
 
 ;;; Kludges
 
-(advice-add 'resize-temp-buffer-window :before 'redisplay)
+(defun moody-redisplay (&optional _force &rest _ignored)
+  "Call `redisplay' to trigger mode-line height calculations.
+
+Certain functions, including e.g. `fit-window-to-buffer', base
+their size calculations on values which are incorrect if the
+mode-line has a height different from that of the `default' face
+and certain other calculations have not yet taken place for the
+window in question.
+
+These calculations can be triggered by calling `redisplay'
+explicitly at the appropriate time and this functions purpose
+is to make it easier to do so.
+
+This function is like `redisplay' with non-nil FORCE argument.
+It accepts an arbitrary number of arguments making it suitable
+as a `:before' advice for any function."
+  (redisplay t))
+
+(advice-add 'fit-window-to-buffer :before #'moody-redisplay)
+(advice-add 'resize-temp-buffer-window :before #'moody-redisplay)
 
 (declare-function color-srgb-to-xyz "color" (red green blue))
 (declare-function color-rgb-to-hex "color" (red green blue &optional
