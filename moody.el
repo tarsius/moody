@@ -277,33 +277,28 @@ not specified, then faces based on `default', `mode-line' and
 
 ;;; Active Window
 
-;; Inspired by, but not identical to, code in `powerline'.  Unlike
-;; that, do not unset `moody--active-window' using `focus-out-hook'
-;; because it is called when a non-Emacs window gains focus, but
-;; Emacs still considers the previous Emacs window to be selected,
-;; so we have to do the same.
-
-(defvar moody--active-window (frame-selected-window))
+(defvar moody--active-window (selected-window))
 
 (defun moody-window-active-p ()
   "Return t if the selected window is the active window.
 Or put differently, return t if the possibly only temporarily
 selected window is still going to be selected when we return
 to the command loop."
-  (eq (selected-window) moody--active-window))
+  (if (fboundp 'old-selected-window)
+      (or (eq (selected-window)
+              (old-selected-window))
+          (and (not (zerop (minibuffer-depth)))
+	       (eq (selected-window)
+	           (with-selected-window (minibuffer-window)
+	             (minibuffer-selected-window)))))
+    (eq (selected-window) moody--active-window)))
 
-(defun moody--set-active-window (&rest _)
-  (let ((win (frame-selected-window)))
-    (unless (minibuffer-window-active-p win)
-      (setq moody--active-window win)
-      (force-mode-line-update))))
-
-(add-hook 'after-make-frame-functions       'moody--set-active-window)
-(add-hook 'window-configuration-change-hook 'moody--set-active-window)
-(add-hook 'focus-in-hook                    'moody--set-active-window)
-(advice-add 'select-window :after           'moody--set-active-window)
-(advice-add 'select-frame :after            'moody--set-active-window)
-(advice-add 'delete-frame :after            'moody--set-active-window)
+(unless (fboundp 'old-selected-window)
+  (defun moody--set-active-window (_)
+    (let ((win (selected-window)))
+      (unless (minibuffer-window-active-p win)
+        (setq moody--active-window win))))
+  (add-hook 'pre-redisplay-functions 'moody--set-active-window))
 
 ;;; Kludges
 
