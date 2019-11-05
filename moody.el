@@ -100,7 +100,7 @@ This should be an even number."
 (defun moody-replace-element (plain wrapped &optional reverse)
   "Replace PLAIN element with WRAPPED element in `mode-line-format'.
 
-Replace every occurance of PLAIN in the complete tree.
+Replace every occurrence of PLAIN in the complete tree.
 If optional REVERSE is non-nil, then replace WRAPPED with PLAIN."
   (when reverse
     (cl-rotatef plain wrapped))
