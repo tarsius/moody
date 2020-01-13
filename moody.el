@@ -328,7 +328,6 @@ as a `:before' advice for any function."
     (redisplay t)))
 
 (advice-add 'fit-window-to-buffer :before #'moody-redisplay)
-(advice-add 'resize-temp-buffer-window :before #'moody-redisplay)
 
 (declare-function color-srgb-to-xyz "color" (red green blue))
 (declare-function color-rgb-to-hex "color" (red green blue &optional
