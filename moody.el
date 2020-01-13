@@ -322,8 +322,10 @@ is to make it easier to do so.
 
 This function is like `redisplay' with non-nil FORCE argument.
 It accepts an arbitrary number of arguments making it suitable
-as a `:before' advice for any function."
-  (unless moody--size-hacked-p
+as a `:before' advice for any function.  If the current buffer
+has no mode-line or this function has already been calle in it,
+then this function does nothing."
+  (when (and mode-line-format (not moody--size-hacked-p))
     (setq moody--size-hacked-p t)
     (redisplay t)))
 
