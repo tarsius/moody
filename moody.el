@@ -84,10 +84,7 @@
 
 (defcustom moody-mode-line-height
   (let ((font (face-font 'mode-line)))
-    (if font
-        (ceiling (* (if (< emacs-major-version 27) 2 1.5)
-                    (aref (font-info font) 2)))
-      30))
+    (if font (* 2 (aref (font-info font) 2)) 30))
   "When using `moody', height of the mode line in pixels.
 This should be an even number."
   :type 'integer
@@ -214,7 +211,7 @@ not specified, then faces based on `default', `mode-line' and
                                     (if (eq direction 'down)
                                         (concat a b c)
                                       (concat c b a))))))
-                 'xpm t :ascent 'center)))
+                 'xpm t :scale 1 :ascent 'center)))
           (push (cons key image) moody--cache)
           image))))
 
