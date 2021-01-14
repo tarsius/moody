@@ -1,6 +1,6 @@
 ;;; moody.el --- Tabs and ribbons for the mode line  -*- lexical-binding: t -*-
 
-;; Copyright (C) 2018-2020  Jonas Bernoulli
+;; Copyright (C) 2018-2021  Jonas Bernoulli
 
 ;; Author: Jonas Bernoulli <jonas@bernoul.li>
 ;; Homepage: https://github.com/tarsius/moody
@@ -172,12 +172,12 @@ not specified, then faces based on `default', `mode-line' and
                   (make-string (floor pad 2) ?\s)))
     (add-face-text-property 0 (length string) face nil string)
     (list
-     (propertize " " 'face face 'display
+     (propertize "|" 'face face 'display
                  (apply moody-slant-function
                         (if (eq direction 'down) 'down 'up)
                         slant))
      string
-     (propertize " " 'face face 'display
+     (propertize "|" 'face face 'display
                  (apply moody-slant-function
                         (pcase (list type direction)
                           (`(tab    down) (cons 'up   slant))
