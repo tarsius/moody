@@ -288,8 +288,7 @@ selected window is still going to be selected when we return
 to the command loop."
   (if (fboundp 'old-selected-window)
       (or (eq (selected-window)
-              (save-window-excursion
-                (old-selected-window)))
+              (old-selected-window))
           (and (not (zerop (minibuffer-depth)))
 	       (eq (selected-window)
 	           (with-selected-window (minibuffer-window)
