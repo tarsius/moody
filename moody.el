@@ -290,9 +290,9 @@ to the command loop."
       (or (eq (selected-window)
               (old-selected-window))
           (and (not (zerop (minibuffer-depth)))
-	       (eq (selected-window)
-	           (with-selected-window (minibuffer-window)
-	             (minibuffer-selected-window)))))
+               (eq (selected-window)
+                   (with-selected-window (minibuffer-window)
+                     (minibuffer-selected-window)))))
     (eq (selected-window) moody--active-window)))
 
 (unless (fboundp 'old-selected-window)
