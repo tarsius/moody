@@ -286,21 +286,15 @@ not specified, then faces based on `default', `mode-line' and
 Or put differently, return t if the possibly only temporarily
 selected window is still going to be selected when we return
 to the command loop."
-  (if (fboundp 'old-selected-window)
-      (or (eq (selected-window)
-              (old-selected-window))
-          (and (not (zerop (minibuffer-depth)))
-               (eq (selected-window)
-                   (with-selected-window (minibuffer-window)
-                     (minibuffer-selected-window)))))
-    (eq (selected-window) moody--active-window)))
+  (eq (selected-window) moody--active-window))
 
-(unless (fboundp 'old-selected-window)
-  (defun moody--set-active-window (_)
-    (let ((win (selected-window)))
-      (unless (minibuffer-window-active-p win)
-        (setq moody--active-window win))))
-  (add-hook 'pre-redisplay-functions 'moody--set-active-window))
+(defun moody--set-active-window (_)
+  (let ((win (selected-window)))
+    (setq moody--active-window
+          (if (minibuffer-window-active-p win)
+              (minibuffer-selected-window)
+            win))))
+(add-hook 'pre-redisplay-functions 'moody--set-active-window)
 
 ;;; Kludges
 
