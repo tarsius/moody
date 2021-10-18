@@ -97,6 +97,21 @@ This should be an even number."
   :type 'function
   :group 'mode-line)
 
+(defcustom moody-ribbon-background '(default :background)
+  "Indirect specification of the background color used for ribbons.
+
+This has the form (FACE ATTRIBUTE), and the color to be used is
+determined using (face-attribute FACE ATTRIBUTE).  If FACE is
+the special value `base', then, depending on whether the window
+is active or not either `mode-line' or `mode-line-inactive' is
+used (or if `moody-wrap's optional arguments FACE-ACTIVE and/or
+FACE-INACTIVE are specified, then those faces).
+
+To get the color used until v0.6.0, then use (base :underline)."
+  :type '(list (symbol  :tag "Face")
+               (keyword :tag "Attribute"))
+  :group 'mode-line)
+
 ;;; Core
 
 (defun moody-replace-element (plain wrapped &optional reverse)
@@ -153,7 +168,9 @@ not specified, then faces based on `default', `mode-line' and
          (line  (if (listp line) (plist-get line :color) line))
          (line  (if (eq line 'unspecified) outer line))
          (inner (if (eq type 'ribbon)
-                    (face-attribute base :underline)
+                    (pcase-let ((`(,face ,attribute) moody-ribbon-background))
+                      (face-attribute (if (eq face 'base) base face)
+                                      attribute))
                   (face-attribute 'default :background)))
          (slant (if (eq direction 'down)
                     (list outer line inner)
