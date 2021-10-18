@@ -67,7 +67,8 @@
 ;;       :config
 ;;       (setq x-underline-at-descent-line t)
 ;;       (moody-replace-mode-line-buffer-identification)
-;;       (moody-replace-vc-mode))
+;;       (moody-replace-vc-mode)
+;;       (moody-replace-eldoc-minibuffer-message-function))
 
 ;; * Such replacement functions are defines as commands, making it
 ;;   quicker to try them out without having to add anything to your
@@ -291,6 +292,71 @@ not specified, then faces based on `default', `mode-line' and
   (moody-replace-element '(vc-mode vc-mode)
                          '(vc-mode moody-vc-mode)
                          reverse))
+
+;;;; eldoc
+
+(defvar moody-eldoc-minibuffer-message-function
+  (lambda ()  ;; Only display in a mode-line right above minibuffer.
+    (and (window-at-side-p nil 'bottom)
+         ;; Side windows tend to be too narrow; so if there
+         ;; are any, then display in all bottom mode-lines.
+         (or (not (eq (window-main-window) (frame-root-window)))
+             (window-at-side-p nil 'left))
+         (list " " (moody-tab eldoc-mode-line-string nil 'up)))))
+
+(defun moody-eldoc-minibuffer-message (format-string &rest args)
+  "Display messages in the mode-line when in the minibuffer.
+
+Otherwise work like `message'.
+
+Use `moody-replace-eldoc-minibuffer-message-function' to use
+this modified copy of `eldoc-minibuffer-message'.
+
+Set `moody-eldoc-minibuffer-message-function' if you want to
+change how the message is shown and/or in which mode-line(s)."
+  (if (minibufferp)
+      (progn
+        (add-hook 'minibuffer-exit-hook
+                  (lambda () (setq eldoc-mode-line-string nil
+                              ;; https://debbugs.gnu.org/16920
+                              eldoc-last-message nil))
+                  nil t)
+        (with-current-buffer
+            (window-buffer
+             (or (window-in-direction 'above (minibuffer-window))
+                 (minibuffer-selected-window)
+                 (get-largest-window)))
+          (when mode-line-format
+            ;; Undo eldoc-minibuffer-message's addition if necessary.
+            (when (eq (ignore-errors (cadr (cadr (cadr mode-line-format))))
+                      'eldoc-mode-line-string)
+              (setq mode-line-format (car (cddr mode-line-format))))
+            ;; Add our own variant, if it isn't present already.
+            (unless (and (listp mode-line-format)
+                         (assq 'eldoc-mode-line-string mode-line-format))
+              (setq mode-line-format
+                    (list ""
+                          '(eldoc-mode-line-string
+                            (:eval
+                             (funcall moody-eldoc-minibuffer-message-function)))
+                          mode-line-format))))
+          (setq eldoc-mode-line-string
+                (when (stringp format-string)
+                  (apply #'format-message format-string args)))
+          (force-mode-line-update)))
+    (apply #'message format-string args)))
+
+;;;###autoload
+(defun moody-replace-eldoc-minibuffer-message-function (&optional reverse)
+  (interactive "P")
+  (if (not reverse)
+      (setq eldoc-message-function #'moody-eldoc-minibuffer-message)
+    (setq eldoc-message-function #'eldoc-minibuffer-message)
+    (dolist (buffer (buffer-list))
+      (with-current-buffer buffer
+        (when (eq (ignore-errors (car (cadr mode-line-format)))
+                  'eldoc-mode-line-string)
+          (setq mode-line-format (car (cddr mode-line-format))))))))
 
 ;;; Active Window
 

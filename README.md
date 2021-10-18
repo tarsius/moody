@@ -35,7 +35,8 @@ for a few built-in elements.
     :config
     (setq x-underline-at-descent-line t)
     (moody-replace-mode-line-buffer-identification)
-    (moody-replace-vc-mode))
+    (moody-replace-vc-mode)
+    (moody-replace-eldoc-minibuffer-message-function))
   ```
 
 * Such replacement functions are defined as commands, making it
