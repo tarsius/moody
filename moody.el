@@ -158,15 +158,13 @@ not specified, then faces based on `default', `mode-line' and
          (slant (if (eq direction 'down)
                     (list outer line inner)
                   (list inner line outer)))
-         (face  (if (eq direction 'down)
-                    (list :overline (and (eq type 'ribbon) line)
-                          :underline line
-                          :background inner)
-                  (list :overline line
-                        :underline (and (or (eq type 'ribbon)
-                                            (not (window-at-side-p nil 'bottom)))
-                                        line)
-                        :background inner)))
+         (face  (list :overline  (and (or (eq direction 'up)
+                                          (eq type 'ribbon))
+                                      line)
+                      :underline (and (or (eq direction 'down)
+                                          (eq type 'ribbon))
+                                      line)
+                      :background inner))
          (pad   (max (- (or width 0) (length string)) 2)))
     (setq string
           (concat (make-string (ceiling pad 2) ?\s)
@@ -265,8 +263,8 @@ not specified, then faces based on `default', `mode-line' and
 ;;;; vc-mode
 
 (defvar moody-vc-mode
-  ;;'(:eval (moody-ribbon (substring vc-mode 1) nil 'up))
-  '(:eval (moody-tab (substring vc-mode 1) nil 'up)))
+  '(:eval (moody-ribbon (substring vc-mode 1) nil 'up)))
+
 (put 'moody-vc-mode 'risky-local-variable t)
 (make-variable-buffer-local 'moody-vc-mode)
 
