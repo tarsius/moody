@@ -129,6 +129,14 @@ If optional REVERSE is non-nil, then replace WRAPPED with PLAIN."
         (message "Cannot find %s and use %s in its place" plain wrapped)
       (setq-default mode-line-format format))))
 
+(defun moody-format-find (elt &optional format)
+  (cl-labels ((find (elt tree)
+                    (cond ((eq tree elt) tree)
+	                  ((consp tree)
+                           (or (find elt (car tree))
+                               (find elt (cdr tree)))))))
+    (find elt (or format (default-value 'mode-line-format)))))
+
 (defun moody-tab (string &optional width direction)
   "Return STRING as a tab.
 
@@ -243,11 +251,16 @@ not specified, then faces based on `default', `mode-line' and
 (make-variable-buffer-local 'moody-mode-line-buffer-identification)
 
 ;;;###autoload
-(defun moody-replace-mode-line-buffer-identification (&optional reverse)
-  (interactive "P")
+(defun moody-replace-mode-line-buffer-identification (&optional restore)
+  "Use moody's variant of `mode-line-buffer-identification'.
+
+If optional RESTORE is true, then go back to the default.
+If called interactively, then toggle between the variants."
+  (interactive (list (moody-format-find
+                      'moody-mode-line-buffer-identification)))
   (moody-replace-element 'mode-line-buffer-identification
                          'moody-mode-line-buffer-identification
-                         reverse))
+                         restore))
 
 ;;;; sml/mode-line-buffer-identification
 
@@ -267,16 +280,25 @@ not specified, then faces based on `default', `mode-line' and
   mode-line-buffer-identification)
 
 ;;;###autoload
-(defun moody-replace-sml/mode-line-buffer-identification (&optional reverse)
-  (interactive "P")
+(defun moody-replace-sml/mode-line-buffer-identification (&optional restore)
+  "Use moody's variant of `mode-line-buffer-identification'.
+
+If optional RESTORE is true, then go back to the default.
+If called interactively, then toggle between the variants.
+
+Use instead of `moody-replace-mode-line-buffer-identification'
+if you use the `smart-mode-line' package, after `sml/setup' has
+already been called."
+  (interactive (list (moody-format-find
+                      'moody-sml/mode-line-buffer-identification)))
   ;; Without this `sml/generate-buffer-identification' would always return nil.
   (setq-default mode-line-buffer-identification
-                (if reverse
+                (if restore
                     moody--default-mode-line-buffer-identification
                   sml/mode-line-buffer-identification))
   (moody-replace-element 'mode-line-buffer-identification
                          'moody-sml/mode-line-buffer-identification
-                         reverse))
+                         restore))
 
 ;;;; vc-mode
 
@@ -287,11 +309,15 @@ not specified, then faces based on `default', `mode-line' and
 (make-variable-buffer-local 'moody-vc-mode)
 
 ;;;###autoload
-(defun moody-replace-vc-mode (&optional reverse)
-  (interactive "P")
+(defun moody-replace-vc-mode (&optional restore)
+  "Use moody's variant of `vc-mode' mode-line element.
+
+If optional RESTORE is true, then go back to the default.
+If called interactively, then toggle between the variants."
+  (interactive (list (moody-format-find 'moody-vc-mode)))
   (moody-replace-element '(vc-mode vc-mode)
                          '(vc-mode moody-vc-mode)
-                         reverse))
+                         restore))
 
 ;;;; eldoc
 
@@ -347,9 +373,18 @@ change how the message is shown and/or in which mode-line(s)."
     (apply #'message format-string args)))
 
 ;;;###autoload
-(defun moody-replace-eldoc-minibuffer-message-function (&optional reverse)
-  (interactive "P")
-  (if (not reverse)
+(defun moody-replace-eldoc-minibuffer-message-function (&optional restore)
+  "Use moody's variant of `eldoc-minibuffer-message'.
+
+If optional RESTORE is true, then go back to the default.
+If called interactively, then toggle between the variants."
+  (interactive (list (or (moody-format-find
+                          'moody-eldoc-minibuffer-message-function
+                          mode-line-format)
+                         (not (moody-format-find
+                               'eldoc-minibuffer-message-function
+                               mode-line-format)))))
+  (if (not restore)
       (setq eldoc-message-function #'moody-eldoc-minibuffer-message)
     (setq eldoc-message-function #'eldoc-minibuffer-message)
     (dolist (buffer (buffer-list))
