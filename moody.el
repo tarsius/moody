@@ -244,11 +244,11 @@ not specified, then faces based on `default', `mode-line' and
 ;;; Element Definitions
 ;;;; mode-line-buffer-identification
 
-(defvar moody-mode-line-buffer-identification
+(defvar-local moody-mode-line-buffer-identification
   '(:eval (moody-tab (car (propertized-buffer-identification (buffer-name)))
                      20 'down)))
+
 (put 'moody-mode-line-buffer-identification 'risky-local-variable t)
-(make-variable-buffer-local 'moody-mode-line-buffer-identification)
 
 ;;;###autoload
 (defun moody-replace-mode-line-buffer-identification (&optional restore)
@@ -266,15 +266,15 @@ If called interactively, then toggle between the variants."
 
 (defvar sml/mode-line-buffer-identification) ; defined in `smart-mode-line.el'
 
-(defvar moody-sml/mode-line-buffer-identification
+(defvar-local moody-sml/mode-line-buffer-identification
   '(:eval (moody-tab
            (or sml/buffer-identification
                (sml/generate-buffer-identification)
                ;; Just in case the above are both nil.
                (car (propertized-buffer-identification (buffer-name))))
            20 'down)))
+
 (put 'moody-sml/mode-line-buffer-identification 'risky-local-variable t)
-(make-variable-buffer-local 'moody-sml/mode-line-buffer-identification)
 
 (defvar moody--default-mode-line-buffer-identification
   mode-line-buffer-identification)
@@ -302,11 +302,10 @@ already been called."
 
 ;;;; vc-mode
 
-(defvar moody-vc-mode
+(defvar-local moody-vc-mode
   '(:eval (moody-ribbon (substring vc-mode 1) nil 'up)))
 
 (put 'moody-vc-mode 'risky-local-variable t)
-(make-variable-buffer-local 'moody-vc-mode)
 
 ;;;###autoload
 (defun moody-replace-vc-mode (&optional restore)
