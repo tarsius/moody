@@ -329,6 +329,8 @@ If called interactively, then toggle between the variants."
              (window-at-side-p nil 'left))
          (list " " (moody-tab eldoc-mode-line-string nil 'up)))))
 
+(put 'moody-eldoc-minibuffer-message-function 'risky-local-variable t)
+
 (defun moody-eldoc-minibuffer-message (format-string &rest args)
   "Display messages in the mode-line when in the minibuffer.
 
