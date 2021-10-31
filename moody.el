@@ -448,7 +448,7 @@ be used as an advice to window creation functions."
     (redisplay t)))
 
 (unless (>= emacs-major-version 29)
-  (advice-remove 'split-window #'moody-redisplay))
+  (advice-add 'split-window :after #'moody-redisplay))
 
 (declare-function color-srgb-to-xyz "color" (red green blue))
 (declare-function color-rgb-to-hex "color" (red green blue &optional
