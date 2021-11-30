@@ -404,6 +404,30 @@ If called interactively, then toggle between the variants."
                   'eldoc-mode-line-string)
           (setq mode-line-format (car (cddr mode-line-format))))))))
 
+;;;; mode-line-front-space
+
+(defvar-local moody-mode-line-front-space
+  '(:eval (if (display-graphic-p)
+              (propertize " " 'display `((space :align-to 0)))
+            "-")))
+
+(put 'moody-mode-line-front-space 'risky-local-variable t)
+
+;;;###autoload
+(defun moody-replace-mode-line-front-space (&optional restore)
+  "Use moody's variant of `mode-line-front-space'.
+
+If optional RESTORE is true, then go back to the default.
+If called interactively, then toggle between the variants.
+
+Adjust the display width so that subsequent character in the
+mode-line are aligned with those in the buffer.  Unlike other
+moody variants do not use any tab or ribbon."
+  (interactive (list (moody-format-find 'moody-mode-line-front-space)))
+  (moody-replace-element 'mode-line-front-space
+                         'moody-mode-line-front-space
+                         restore))
+
 ;;; Active Window
 
 (defvar moody--active-window (selected-window))
