@@ -61,6 +61,11 @@
 ;;         (set-face-attribute 'mode-line-inactive nil :box        nil)
 ;;         (set-face-attribute 'mode-line-inactive nil :background "#f9f2d9")))
 
+;; * Note that the above example is for `solarized-theme' and that for
+;;   your theme (face-attribute 'mode-line :underline) may return nil.
+;;   If you want borders, use something like (let ((line "red")) ...),
+;;   in that case.
+
 ;; * Add something like this to your init file:
 ;;
 ;;     (use-package moody
