@@ -91,8 +91,9 @@
 ;;; Options
 
 (defcustom moody-mode-line-height
-  (let ((font (face-font 'mode-line)))
-    (if font (* 2 (aref (font-info font) 2)) 30))
+  (and (fboundp 'face-font)
+       (let ((font (face-font 'mode-line)))
+         (if font (* 2 (aref (font-info font) 2)) 30)))
   "When using `moody', height of the mode line in pixels.
 
 This should be an even number or nil to leave this unspecified,
