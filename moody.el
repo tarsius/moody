@@ -148,7 +148,7 @@ If optional REVERSE is non-nil, then replace WRAPPED with PLAIN."
 (defun moody-format-find (elt &optional format)
   (cl-labels ((find (elt tree)
                     (cond ((eq tree elt) tree)
-	                  ((consp tree)
+                          ((consp tree)
                            (or (find elt (car tree))
                                (find elt (cdr tree)))))))
     (find elt (or format (default-value 'mode-line-format)))))
