@@ -148,7 +148,7 @@ If optional REVERSE is non-nil, then replace WRAPPED with PLAIN."
 (defun moody-format-find (elt &optional format)
   (cl-labels ((find (elt tree)
                     (cond ((eq tree elt) tree)
-	                  ((consp tree)
+                      ((consp tree)
                            (or (find elt (car tree))
                                (find elt (cdr tree)))))))
     (find elt (or format (default-value 'mode-line-format)))))
@@ -475,7 +475,7 @@ from that of the `default' face.  This function is intended to
 be used as an advice to window creation functions."
   (when (and mode-line-format
              (/= (frame-char-height) (window-mode-line-height)))
-    (redisplay t)))
+    (let ((inhibit-redisplay t)) (redisplay t))))
 
 (unless (>= emacs-major-version 29)
   (advice-add 'split-window :after #'moody-redisplay))
