@@ -452,7 +452,7 @@ to the command loop."
           (if (minibuffer-window-active-p win)
               (minibuffer-selected-window)
             win))))
-(add-hook 'pre-redisplay-functions 'moody--set-active-window)
+(add-hook 'pre-redisplay-functions #'moody--set-active-window)
 
 ;;; Kludges
 
