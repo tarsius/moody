@@ -5,7 +5,7 @@
 ;; Author: Jonas Bernoulli <jonas@bernoul.li>
 ;; Homepage: https://github.com/tarsius/moody
 
-;; Package-Requires: ((emacs "25.3"))
+;; Package-Requires: ((emacs "25.3") (compat "28.1.1.0"))
 
 ;; SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -87,6 +87,7 @@
 ;;; Code:
 
 (require 'cl-lib)
+(require 'compat)
 
 ;;; Options
 
