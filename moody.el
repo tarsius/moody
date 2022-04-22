@@ -341,7 +341,11 @@ If called interactively, then toggle between the variants."
     (and (window-at-side-p nil 'bottom)
          ;; Side windows tend to be too narrow; so if there
          ;; are any, then display in all bottom mode-lines.
-         (or (not (eq (window-main-window) (frame-root-window)))
+         (or (not (eq (cond ((fboundp 'window-main-window) ; >= 26.1
+                             (window-main-window))
+                            ((fboundp 'window--major-non-side-window) ; < 26.1
+                             (window--major-non-side-window)))
+                      (frame-root-window)))
              (window-at-side-p nil 'left))
          (list " " (moody-tab eldoc-mode-line-string nil 'up)))))
 
