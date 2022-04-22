@@ -222,10 +222,10 @@ not specified, then faces based on `default', `mode-line' and
      (propertize "|" 'face face 'display
                  (apply moody-slant-function
                         (pcase (list type direction)
-                          (`(tab    down) (cons 'up   slant))
-                          (`(tab    up)   (cons 'down slant))
-                          (`(ribbon down) (cons 'down (reverse slant)))
-                          (`(ribbon up)   (cons 'up   (reverse slant)))))))))
+                          ('(tab    down) (cons 'up   slant))
+                          ('(tab    up)   (cons 'down slant))
+                          ('(ribbon down) (cons 'down (reverse slant)))
+                          ('(ribbon up)   (cons 'up   (reverse slant)))))))))
 
 (defvar moody--cache nil)
 
