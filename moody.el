@@ -131,19 +131,21 @@ To get the color used until v0.6.0, then use (base :underline)."
 
 ;;; Core
 
-(defun moody-replace-element (plain wrapped &optional reverse)
+(defun moody-replace-element (plain wrapped &optional reverse variable)
   "Replace PLAIN element with WRAPPED element in `mode-line-format'.
 
 Replace every occurrence of PLAIN in the complete tree.
-If optional REVERSE is non-nil, then replace WRAPPED with PLAIN."
+If optional REVERSE is non-nil, then replace WRAPPED with PLAIN.
+If optional VARIABLE is non-nil, then the replacement happens in
+the default value of that variable."
   (when reverse
     (cl-rotatef plain wrapped))
   (let ((format (cl-subst wrapped plain
                           (default-value 'mode-line-format)
                           :test #'equal)))
-    (if (eq format (default-value 'mode-line-format))
+    (if (eq format (default-value (or variable 'mode-line-format)))
         (message "Cannot find %s and use %s in its place" plain wrapped)
-      (setq-default mode-line-format format))))
+      (set-default (or variable 'mode-line-format) format))))
 
 (defun moody-format-find (elt &optional format)
   (cl-labels ((find (elt tree)
