@@ -51,3 +51,8 @@ for a few built-in elements.
   function with ~t~ as the value of the optional REVERSE argument.
   You can accomplish the same by interactively calling such a
   function with a prefix argument to do so.
+
+#+html: <br><br>
+#+html: <a href="https://github.com/tarsius/moody/actions/workflows/compile.yml"><img alt="Compile" src="https://github.com/tarsius/moody/actions/workflows/compile.yml/badge.svg"/></a>
+#+html: <a href="https://stable.melpa.org/#/moody"><img alt="MELPA Stable" src="https://stable.melpa.org/packages/moody-badge.svg"/></a>
+#+html: <a href="https://melpa.org/#/moody"><img alt="MELPA" src="https://melpa.org/packages/moody-badge.svg"/></a>
