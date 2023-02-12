@@ -6,7 +6,7 @@
 ;; Homepage: https://github.com/tarsius/moody
 ;; Keywords: faces
 
-;; Package-Requires: ((emacs "25.3") (compat "28.1.1.0"))
+;; Package-Requires: ((emacs "25.3") (compat "29.1.3.4"))
 
 ;; SPDX-License-Identifier: GPL-3.0-or-later
 
