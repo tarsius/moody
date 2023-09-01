@@ -488,8 +488,8 @@ be used as an advice to window creation functions."
   (advice-add 'split-window :after #'moody-redisplay))
 
 (declare-function color-srgb-to-xyz "color" (red green blue))
-(declare-function color-rgb-to-hex "color" (red green blue &optional
-                                                digits-per-component))
+(declare-function color-rgb-to-hex "color" ( red green blue
+                                             &optional digits-per-component))
 
 (defun moody-slant-apple-rgb (direction c1 c2 c3 &optional height)
   (require (quote color))
