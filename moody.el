@@ -35,7 +35,7 @@
 ;; becomes in-/active.  Other packages additionally change what
 ;; elements are being displayed and also the appearance of an
 ;; individual element may change completely, which I found highly
-;; distracting when trying out those packages because I never know
+;; distracting when trying out those packages, because I never knew
 ;; what visual clues to look for in order to find a certain piece
 ;; of information.
 
@@ -101,11 +101,11 @@ in which case the value of `window-mode-line-height' is used.
 
 Increasing the height of the mode-line triggers a bug in Emacs
 releases before version 29.1, causing only parts of the buffer
-to be displayed in the window even though it would fix exactly.
+to be displayed in the window even though it would fit exactly.
 Moody provides a workaround but that in turn can result in some
 flickering.  If you notice such flickering and it bothers you,
-then either update to the development version of Emacs or do
-not increase the height of the mode-line."
+then either update to Emacs 29.1, or do not increase the height
+of the mode-line."
   :type '(choice (const :tag "unspecified" nil) integer)
   :group 'mode-line)
 
@@ -465,7 +465,7 @@ to the command loop."
 (defun moody-redisplay (&optional _force &rest _ignored)
   "Call `redisplay' to trigger mode-line height calculations.
 
-Certain functions, including e.g. `fit-window-to-buffer', base
+Certain functions, including e.g., `fit-window-to-buffer', base
 their size calculations on values which are incorrect if the
 mode-line has a height different from that of the `default' face
 and certain other calculations have not yet taken place for the

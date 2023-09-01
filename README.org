@@ -50,7 +50,7 @@ for a few built-in elements.
 - To undo the call to a ~moody-replace-*~ function, call the same
   function with ~t~ as the value of the optional REVERSE argument.
   You can accomplish the same by interactively calling such a
-  function with a prefix argument to do so.
+  command with a prefix argument.
 
 #+html: <br><br>
 #+html: <a href="https://github.com/tarsius/moody/actions/workflows/compile.yml"><img alt="Compile" src="https://github.com/tarsius/moody/actions/workflows/compile.yml/badge.svg"/></a>
