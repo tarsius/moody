@@ -90,14 +90,21 @@
 
 ;;; Options
 
-(defcustom moody-mode-line-height
+(defun moody-default-mode-line-height ()
+  "Return two times size of font used by `mode-line' face.
+If that is not possible (see code), return 30."
   (and (fboundp 'font-info)
        (let ((font (face-font 'mode-line)))
-         (if font (* 2 (aref (font-info font) 2)) 30)))
+         (if font (* 2 (aref (font-info font) 2)) 30))))
+
+(defcustom moody-mode-line-height (moody-default-mode-line-height)
   "When using `moody', height of the mode line in pixels.
 
-This should be an even number or nil to leave this unspecified,
-in which case the value of `window-mode-line-height' is used.
+This must be an even number or a function that, when called
+with zero arguments, returns an even number.  Unless you plan
+to change the sizes of fonts at runtime, it is better to use
+a number here.  If you use a function instead, then that ends
+up being called a lot.
 
 Increasing the height of the mode-line triggers a bug in Emacs
 releases before version 29.1, causing only parts of the buffer
@@ -106,7 +113,10 @@ Moody provides a workaround but that in turn can result in some
 flickering.  If you notice such flickering and it bothers you,
 then either update to Emacs 29.1, or do not increase the height
 of the mode-line."
-  :type '(choice (const :tag "unspecified" nil) integer)
+  :type '(choice (integer :tag "constant value")
+                 (function-item moody-default-mode-line-height)
+                 (function-item window-mode-line-height)
+                 function)
   :group 'mode-line)
 
 (defcustom moody-slant-function 'moody-slant
@@ -233,7 +243,10 @@ not specified, then faces based on `default', `mode-line' and
 
 (defun moody-slant (direction c1 c2 c3 &optional height)
   (unless height
-    (setq height (or moody-mode-line-height (window-mode-line-height))))
+    (setq height (or (if (functionp moody-mode-line-height)
+                         (funcall moody-mode-line-height)
+                       moody-mode-line-height)
+                     (window-mode-line-height))))
   (unless (cl-evenp height)
     (cl-incf height))
   (let ((key (list direction c1 c2 c3 height)))
