@@ -124,6 +124,11 @@ of the mode-line."
   :type 'function
   :group 'mode-line)
 
+(defvar moody-slant-placeholder "|"
+  "Placeholder string, which is replaced with the slant image.
+Must be a non-empty string and is otherwise only relevant when
+the image cannot be displayed.")
+
 (defcustom moody-ribbon-background '(default :background)
   "Indirect specification of the background color used for ribbons.
 
@@ -226,12 +231,12 @@ not specified, then faces based on `default', `mode-line' and
                   (make-string (floor pad 2) ?\s)))
     (add-face-text-property 0 (length string) face nil string)
     (list
-     (propertize "|" 'face face 'display
+     (propertize moody-slant-placeholder 'face face 'display
                  (apply moody-slant-function
                         (if (eq direction 'down) 'down 'up)
                         slant))
      string
-     (propertize "|" 'face face 'display
+     (propertize moody-slant-placeholder 'face face 'display
                  (apply moody-slant-function
                         (pcase (list type direction)
                           ('(tab    down) (cons 'up   slant))
