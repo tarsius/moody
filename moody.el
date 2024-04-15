@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2018-2024 Jonas Bernoulli
 
-;; Author: Jonas Bernoulli <jonas@bernoul.li>
+;; Author: Jonas Bernoulli <emacs.moody@jonas.bernoulli.dev>
 ;; Homepage: https://github.com/tarsius/moody
 ;; Keywords: faces
 
