@@ -232,9 +232,9 @@ not specified, then faces based on `default', `mode-line' and
                                       line)
                       :underline (and (or (eq direction 'down)
                                           (eq type 'ribbon))
-                                      (if (version<= "29.1" emacs-version)
+                                      (if (>= emacs-major-version 29)
                                           (list :color line :position t)
-                                        line)
+                                        line))
                       :background inner))
          (pad   (max (- (or width 0) (length string)) 2)))
     (setq string
