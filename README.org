@@ -15,7 +15,9 @@ shown in the above screenshot, add the following to your init file.
 
 #+begin_src emacs-lisp
   (require 'moody)
+  (moody-replace-mode-line-front-space)
   (moody-replace-mode-line-buffer-identification)
+  (moody-replace-vc-mode)
 #+end_src
 
 Or if you are using ~use-package~.
@@ -23,7 +25,9 @@ Or if you are using ~use-package~.
 #+begin_src emacs-lisp
   (use-package moody
     :config
+    (moody-replace-mode-line-front-space)
     (moody-replace-mode-line-buffer-identification)
+    (moody-replace-vc-mode))
 #+end_src
 
 Moody provides functions named ~moody-replace-...~, each of which
