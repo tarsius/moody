@@ -45,7 +45,7 @@ faces might need some additional/alternative styling, when using
 Moody.
 
 Let's go through some changes that are commonly required.  We will be
-using ~set-face-attribute~ to achive this.  The calls to that function
+using ~set-face-attribute~ to achieve this.  The calls to that function
 should be placed right after ~load-theme~.
 
 Many themes set the ~:box~ attribute for these faces.  That doesn't work
