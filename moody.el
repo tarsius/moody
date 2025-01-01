@@ -1,13 +1,13 @@
 ;;; moody.el --- Tabs and ribbons for the mode line  -*- lexical-binding:t -*-
 
-;; Copyright (C) 2018-2024 Jonas Bernoulli
+;; Copyright (C) 2018-2025 Jonas Bernoulli
 
 ;; Author: Jonas Bernoulli <emacs.moody@jonas.bernoulli.dev>
 ;; Homepage: https://github.com/tarsius/moody
 ;; Keywords: faces
 
-;; Package-Version: 1.1.1
-;; Package-Requires: ((emacs "26.1") (compat "30.0.0.0"))
+;; Package-Version: 1.1.2
+;; Package-Requires: ((emacs "26.1") (compat "30.0.1.0"))
 
 ;; SPDX-License-Identifier: GPL-3.0-or-later
 
