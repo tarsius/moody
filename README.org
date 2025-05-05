@@ -50,16 +50,14 @@ should be placed right after ~load-theme~.
 /These examples assume Emacs 29.1 or later.  If you use an older
 release, modify/ ~mode-line~ /instead of/ ~mode-line-active~.
 
-Many themes set the ~:box~ attribute for these faces.  That doesn't work
-for Moody, so you might have to remove that.
+*Many themes (including the default theme) set the* ~:box~ *attribute*
+*for these faces.  That conflicts with Moody, so you most likely have*
+*to remove those boxes.*
 
 #+begin_src emacs-lisp
-  (set-face-attribute 'mode-line-active nil :box nil)
-  (set-face-attribute 'mode-line-inactive nil :box nil)
+  (set-face-attribute 'mode-line-active nil :box 'unspecified)
+  (set-face-attribute 'mode-line-inactive nil :box 'unspecified)
 #+end_src
-
-If these faces inherit from other faces, you might have to use
-~unspecified~, instead of ~nil~.
 
 A look similar to boxes can be achieved by using the ~:overline~ and
 ~:underline~ attributes.
