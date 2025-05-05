@@ -66,10 +66,12 @@ A look similar to boxes can be achieved by using the ~:overline~ and
 
 #+begin_src emacs-lisp
   (set-face-attribute 'mode-line-active nil :overline "blue")
-  (set-face-attribute 'mode-line-active nil :underline `(:color "blue" :position t))
+  (set-face-attribute 'mode-line-active nil
+                      :underline `(:color "blue" :position t))
 
   (set-face-attribute 'mode-line-inactive nil :overline "green")
-  (set-face-attribute 'mode-line-inactive nil :underline `(:color "green" :position t))
+  (set-face-attribute 'mode-line-inactive nil
+                      :underline `(:color "green" :position t))
 #+end_src
 
 Beginning with Emacs 29.1, we can use ~:position t~ to put the underline
