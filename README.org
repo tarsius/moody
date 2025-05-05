@@ -40,19 +40,21 @@ To learn what element substitutions are available out of the box, use
 
 *** Styling
 
-Depending on the used theme, the ~mode-line~ and ~mode-line-inactive~
-faces might need some additional/alternative styling, when using
-Moody.
+Depending on the used theme, the faces ~mode-line~, ~mode-line-active~
+and ~mode-line-inactive~ might have to be modified when using Moody.
 
 Let's go through some changes that are commonly required.  We will be
 using ~set-face-attribute~ to achieve this.  The calls to that function
 should be placed right after ~load-theme~.
 
+/These examples assume Emacs 29.1 or later.  If you use an older
+release, modify/ ~mode-line~ /instead of/ ~mode-line-active~.
+
 Many themes set the ~:box~ attribute for these faces.  That doesn't work
 for Moody, so you might have to remove that.
 
 #+begin_src emacs-lisp
-  (set-face-attribute 'mode-line nil :box nil)
+  (set-face-attribute 'mode-line-active nil :box nil)
   (set-face-attribute 'mode-line-inactive nil :box nil)
 #+end_src
 
@@ -63,8 +65,8 @@ A look similar to boxes can be achieved by using the ~:overline~ and
 ~:underline~ attributes.
 
 #+begin_src emacs-lisp
-  (set-face-attribute 'mode-line nil :overline "blue")
-  (set-face-attribute 'mode-line nil :underline `(:color "blue" :position t))
+  (set-face-attribute 'mode-line-active nil :overline "blue")
+  (set-face-attribute 'mode-line-active nil :underline `(:color "blue" :position t))
 
   (set-face-attribute 'mode-line-inactive nil :overline "green")
   (set-face-attribute 'mode-line-inactive nil :underline `(:color "green" :position t))

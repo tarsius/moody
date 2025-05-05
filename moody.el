@@ -91,12 +91,13 @@ the image cannot be displayed.")
 (defcustom moody-ribbon-background '(default :background)
   "Indirect specification of the background color used for ribbons.
 
-This has the form (FACE ATTRIBUTE), and the color to be used is
-determined using (face-attribute FACE ATTRIBUTE nil t).  If FACE
-is the special value `base', then, depending on whether the window
-is active or not either `mode-line' or `mode-line-inactive' is
-used (or if `moody-wrap's optional arguments FACE-ACTIVE and/or
-FACE-INACTIVE are specified, then those faces).
+This has the form (FACE ATTRIBUTE), and the color to be used
+is determined using (face-attribute FACE ATTRIBUTE).  If FACE is
+the special value `base', then, depending on whether the window
+is active or not either `mode-line-active' or `mode-line-inactive'
+is used (or if `moody-wrap's optional arguments FACE-ACTIVE and/or
+FACE-INACTIVE are specified, then those faces).  `mode-line-active'
+was added in Emacs 29.1, for older releases `mode-line' is used.
 
 To get the color used until v0.6.0, then use (base :underline)."
   :type '(list (symbol  :tag "Face")
@@ -152,8 +153,8 @@ to `up'.  The other valid value is `down'.
 
 FACE-ACTIVE and FACE-INACTIVE specify the faces to be used when
 the window is active respectively inactive.  If these faces are
-not specified, then faces based on `default', `mode-line' and
-`mode-line-active' are generated and used."
+not specified, then ad hoc faces based on `default', `mode-line',
+`mode-line-active' and `mode-line-inactive' are used."
   (moody-wrap string width direction 'ribbon face-active face-inactive))
 
 (defun moody-wrap (string &optional width direction type face-active face-inactive)
@@ -162,7 +163,10 @@ not specified, then faces based on `default', `mode-line' and
   (unless direction
     (setq direction 'down))
   (let* ((base  (if (moody-window-active-p)
-                    (or face-active 'mode-line)
+                    (or face-active
+                        (if (>= emacs-major-version 29)
+                            'mode-line-active
+                          'mode-line))
                   (or face-inactive 'mode-line-inactive)))
          (outer (face-attribute base :background nil t))
          (line  (face-attribute base :underline nil t))
