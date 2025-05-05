@@ -6,6 +6,15 @@ for a few built-in elements.
 
 [[http://readme.emacsair.me/moody.png]]
 
+The biggest differences to similar packages is that this one is
+much simpler and much more consistent.  When using this package,
+only the color of the mode line changes when a window becomes
+in-/active.  Other packages additionally change what elements
+are being displayed and also the appearance of an individual
+element may change completely, which I found highly distracting
+when trying out those packages, because I never knew what visual
+clues to look for in order to find a certain piece of information.
+
 ** Configuration
 
 *** Replacing default elements
@@ -72,9 +81,9 @@ A look similar to boxes can be achieved by using the ~:overline~ and
                       :underline `(:color "green" :position t))
 #+end_src
 
-Beginning with Emacs 29.1, we can use ~:position t~ to put the underline
-at the very bottom of the mode line.  When using an older release, then
-this unfortunately can only be enabled globally.
+Beginning with Emacs 29.1, we can use ~:position t~ to put the
+underline at the very bottom of the mode line.  When using an older
+release, then this unfortunately can only be enabled globally.
 
 #+begin_src emacs-lisp
   (setq x-underline-at-descent-line t)
