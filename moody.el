@@ -92,8 +92,8 @@ the image cannot be displayed.")
   "Indirect specification of the background color used for ribbons.
 
 This has the form (FACE ATTRIBUTE), and the color to be used is
-determined using (face-attribute FACE ATTRIBUTE).  If FACE is
-the special value `base', then, depending on whether the window
+determined using (face-attribute FACE ATTRIBUTE nil t).  If FACE
+is the special value `base', then, depending on whether the window
 is active or not either `mode-line' or `mode-line-inactive' is
 used (or if `moody-wrap's optional arguments FACE-ACTIVE and/or
 FACE-INACTIVE are specified, then those faces).
@@ -164,8 +164,8 @@ not specified, then faces based on `default', `mode-line' and
   (let* ((base  (if (moody-window-active-p)
                     (or face-active 'mode-line)
                   (or face-inactive 'mode-line-inactive)))
-         (outer (face-attribute base :background))
-         (line  (face-attribute base :underline))
+         (outer (face-attribute base :background nil t))
+         (line  (face-attribute base :underline nil t))
          (line  (cond ((and line (listp line))
                        (plist-get line :color))
                       ((eq line 'unspecified) outer)
@@ -173,8 +173,8 @@ not specified, then faces based on `default', `mode-line' and
          (inner (if (eq type 'ribbon)
                     (pcase-let ((`(,face ,attribute) moody-ribbon-background))
                       (face-attribute (if (eq face 'base) base face)
-                                      attribute))
-                  (face-attribute 'default :background)))
+                                      attribute nil t))
+                  (face-attribute 'default :background nil t)))
          (slant (if (eq direction 'down)
                     (list outer line inner)
                   (list inner line outer)))
