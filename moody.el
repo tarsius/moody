@@ -313,8 +313,9 @@ not specified, then ad hoc faces based on `default', `mode-line',
 ;;;; mode-line-buffer-identification
 
 (defvar-local moody-mode-line-buffer-identification
-    '(:eval (moody-tab (car (propertized-buffer-identification (buffer-name)))
-                       20 'down)))
+  '(:eval (moody-tab (car (propertized-buffer-identification
+                           (format-mode-line "%b")))
+                     20 'down)))
 
 (put 'moody-mode-line-buffer-identification 'risky-local-variable t)
 
@@ -339,7 +340,8 @@ If called interactively, then toggle between the variants."
              (or sml/buffer-identification
                  (sml/generate-buffer-identification)
                  ;; Just in case the above are both nil.
-                 (car (propertized-buffer-identification (buffer-name))))
+                 (car (propertized-buffer-identification
+                       (format-mode-line "%b"))))
              20 'down)))
 
 (put 'moody-sml/mode-line-buffer-identification 'risky-local-variable t)
