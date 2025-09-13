@@ -188,12 +188,13 @@ the default value of that variable."
       (set-default (or variable 'mode-line-format) format))))
 
 (defun moody-format-find (elt &optional format)
-  (cl-labels ((find (elt tree)
-                (cond ((eq tree elt) tree)
-                      ((consp tree)
-                       (or (find elt (car tree))
-                           (find elt (cdr tree)))))))
-    (find elt (or format (default-value 'mode-line-format)))))
+  (named-let find
+      ((elt elt)
+       (tree (or format (default-value 'mode-line-format))))
+    (cond ((eq tree elt) tree)
+          ((consp tree)
+           (or (find elt (car tree))
+               (find elt (cdr tree)))))))
 
 (defun moody-tab (string &optional width direction)
   "Return STRING as a tab.
