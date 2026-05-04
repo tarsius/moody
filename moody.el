@@ -9,7 +9,7 @@
 ;; Package-Version: 1.2.2
 ;; Package-Requires: (
 ;;     (emacs  "28.1")
-;;     (compat "30.1"))
+;;     (compat "31.0"))
 
 ;; SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -299,7 +299,7 @@ not specified, then ad hoc faces based on `default', `mode-line',
                      (window-mode-line-height))))
   (setq height (* height moody-display-scale))
   (unless (cl-evenp height)
-    (cl-incf height))
+    (incf height))
   (let ((key (list direction c1 c2 c3 height)))
     (or (cdr (assoc key moody--cache))
         (let* ((width (/ height 2))
